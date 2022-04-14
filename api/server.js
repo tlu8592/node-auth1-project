@@ -1,6 +1,7 @@
 const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
+const bcrypt = require('bcryptjs');
 
 /**
   Do what needs to be done to support sessions with the `express-session` package!
