@@ -28,7 +28,7 @@ function restricted(req, res, next) {
     "message": "Username taken"
   }
 */
-function checkUsernameFree() {
+async function checkUsernameFree() {
   const existingUser = await User.findBy({ username: req.body.username })
   if (existingUser) {
     next({ status: 422, message: 'Username taken' })
@@ -45,7 +45,7 @@ function checkUsernameFree() {
     "message": "Invalid credentials"
   }
 */
-function checkUsernameExists() {
+async function checkUsernameExists() {
   const existedUserName = await User.findBy({ username: req.body.username })
   if (existedUserName) {
     next({ status: 401, message: 'Invalid credentials' })
