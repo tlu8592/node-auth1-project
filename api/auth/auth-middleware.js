@@ -1,4 +1,4 @@
-const res = require("express/lib/response")
+const User = require('../users/users-model')
 
 /*
   If the user does not have a session saved in the server
@@ -29,7 +29,12 @@ function restricted(req, res, next) {
   }
 */
 function checkUsernameFree() {
-
+  const existingUser = await User.findBy({ username: req.body.username })
+  if (existingUser) {
+    next({ status: 422, message: 'Username taken' })
+  } else {
+    next()
+  }
 }
 
 /*
@@ -41,7 +46,12 @@ function checkUsernameFree() {
   }
 */
 function checkUsernameExists() {
-
+  const existedUserName = await User.findBy({ username: req.body.username })
+  if (existedUserName) {
+    next({ status: 401, message: 'Invalid credentials' })
+  } else {
+    next()
+  }
 }
 
 /*
@@ -58,12 +68,15 @@ function checkPasswordLength() {
       message: "Password must be longer than 3 chars",
       err: err.message
     })
+  } else {
+    next()
   }
 }
 
 // Don't forget to add these to the `exports` object so they can be required in other modules
 module.exports = {
   restricted,
+  checkUsernameFree,
   checkUsernameExists,
   checkPasswordLength
 }
