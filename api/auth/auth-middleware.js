@@ -1,3 +1,4 @@
+
 /*
   If the user does not have a session saved in the server
 
@@ -7,7 +8,8 @@
   }
 */
 function restricted() {
-
+  console.log('restricted')
+  next()
 }
 
 /*
@@ -19,6 +21,7 @@ function restricted() {
   }
 */
 function checkUsernameFree() {
+  next()
 
 }
 
@@ -31,6 +34,7 @@ function checkUsernameFree() {
   }
 */
 function checkUsernameExists() {
+  next()
 
 }
 
@@ -47,3 +51,9 @@ function checkPasswordLength() {
 }
 
 // Don't forget to add these to the `exports` object so they can be required in other modules
+module.exports = {
+  restricted,
+  checkUsernameFree,
+  checkUsernameExists,
+  checkPasswordLength
+}
